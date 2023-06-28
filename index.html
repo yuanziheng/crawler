@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>爬虫TEST</title>
+</head>
+<style>
+	li {
+		list-style: none;
+	}
+</style>
+<body>
+	<div>
+		<button onclick="getBaiduNews()">获取新闻</button>
+		<button onclick="getLOLHero()">获取LOL</button>
+	</div>
+	<div>
+		<ul id="list"></ul>
+	</div>
+	<script>
+		let options = {
+			method: 'GET',
+			mode: 'cors',
+			headers: {
+			  'Accept': 'application/json',
+			  'Content-Type': 'application/json;chartset=UTF-8',
+			}
+		}
+		async function getBaiduNews() {
+			let url = 'http://localhost:3000/getBaiduNews'
+			let response = await fetch(url, options)
+			let responseOK = response && response.ok
+			if(!responseOK) return
+			let data = await response.json()
+			let htmlStr = ''
+			data.forEach((item, index) => {
+				htmlStr += `<li><a href="${item.href}" target="_blank">${index + 1}. ${item.title}</a></li>`
+			})
+			document.getElementById('list').innerHTML = htmlStr
+			console.log(data)
+		}
+		async function getLOLHero() {
+			let url = 'http://localhost:3000/getLOLHero'
+			let response = await fetch(url, options)
+			let responseOK = response && response.ok
+			if(!responseOK) return
+			let data = await response.json()
+			console.log(data.hero)
+			let htmlStr = ''
+			data.hero.forEach((item, index) => {
+				htmlStr += `<li><img src="https://game.gtimg.cn/images/lol/act/img/champion/${item.alias}.png"/>${item.name} ${item.title}</li>`
+			})
+			document.getElementById('list').innerHTML = htmlStr
+		}
+	</script>
+</body>
+</html>

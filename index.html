@@ -45,7 +45,6 @@
 			let responseOK = response && response.ok
 			if(!responseOK) return
 			let data = await response.json()
-			console.log(data.hero)
 			let htmlStr = ''
 			data.hero.forEach((item, index) => {
 				htmlStr += `<li><img src="https://game.gtimg.cn/images/lol/act/img/champion/${item.alias}.png"/>${item.name} ${item.title}</li>`

@@ -6,6 +6,7 @@
 npm install
 ```
 
+2个终端，分别执行下面两个命令
 ```
 node service.js
 ```
